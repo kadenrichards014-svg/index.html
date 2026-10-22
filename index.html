@@ -1,4 +1,4 @@
-
+no
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -506,7 +506,7 @@ async function load() {
     }
 
     // If the main source fails, try a community-maintained GitHub list.
-    if (list.length < 500) {
+    if (list.length < 50) {
       $('status').textContent = 'Main source unavailable. Trying backup list…';
 
       const response = await fetch(
@@ -521,7 +521,7 @@ async function load() {
       list = uniqueCars(parseCommunityCars(text));
     }
 
-    if (list.length < 500) {
+    if (list.length < 50) {
       throw new Error(
         'The roster source returned only ' + list.length + ' cars.'
       );
