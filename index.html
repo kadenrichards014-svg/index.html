@@ -6,39 +6,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FH5 Car Picker & Build Generator</title>
 <style>
-:root{color-scheme:dark}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#183b54,#09121d 65%);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#f4f8fc;display:grid;place-items:center;padding:16px}
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#183b54,#09121d 65%);font-family:system-ui,sans-serif;color:#f4f8fc;display:grid;place-items:center;padding:16px}
 main{width:min(850px,100%);background:#101d2bef;border:1px solid #35516a;border-radius:24px;padding:clamp(18px,4vw,34px);box-shadow:0 18px 60px #0007}
-header{text-align:center}
-.kicker{letter-spacing:.15em;text-transform:uppercase;color:#83d8ff;font-size:.78rem;font-weight:800}
-h1{font-size:clamp(1.8rem,6vw,2.8rem);line-height:1.05;margin:.6rem 0}
-h2{font-size:1.35rem;margin:0 0 8px}
-h3{font-size:1.05rem;margin:14px 0 6px}
-.sub{color:#bdccda;line-height:1.5}
+header{text-align:center}.kicker{letter-spacing:.15em;text-transform:uppercase;color:#83d8ff;font-size:.78rem;font-weight:800}
+h1{font-size:clamp(1.8rem,6vw,2.8rem);line-height:1.05;margin:.6rem 0}h2{font-size:1.35rem;margin:0 0 8px}h3{font-size:1.05rem;margin:14px 0 6px}.sub{color:#bdccda;line-height:1.5}
 .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:22px 0}
 .field label{display:block;color:#b9cada;font-size:.82rem;margin:0 0 6px}
 .field select,.field input{width:100%;background:#0a1723;color:#f4f8fc;border:1px solid #35516a;border-radius:10px;padding:11px;font:inherit}
 .car{margin:14px 0;min-height:130px;display:grid;place-items:center;text-align:center;border:1px solid #35516a;border-radius:18px;padding:20px;background:linear-gradient(135deg,#152d40,#0b1724)}
-#carName{font-size:clamp(1.4rem,5vw,2.2rem);font-weight:850}
-#meta{margin-top:10px;color:#9eb4c7;font-size:.92rem}
+#carName{font-size:clamp(1.4rem,5vw,2.2rem);font-weight:850}#meta{margin-top:10px;color:#9eb4c7;font-size:.92rem}
 button{border:0;border-radius:13px;background:#7ee1ff;color:#07131e;font-weight:850;font-size:1rem;padding:14px 16px;width:100%;cursor:pointer;margin-top:9px}
-button:disabled{opacity:.6;cursor:wait}
-.secondary{background:#263d50;color:#f4f8fc}
+button:disabled{opacity:.6;cursor:wait}.secondary{background:#263d50;color:#f4f8fc}
 .status{font-size:.9rem;color:#a9bdce;min-height:2.5em;margin-top:13px;text-align:center;overflow-wrap:anywhere}
-a{color:#8fe3ff}
-.small{font-size:.82rem;color:#92a9bb;line-height:1.5;margin-top:18px;text-align:center}
+a{color:#8fe3ff}.small{font-size:.82rem;color:#92a9bb;line-height:1.5;margin-top:18px;text-align:center}
 .panel{border:1px solid #35516a;border-radius:18px;padding:18px;margin-top:22px;background:#0b1724aa}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
 .modegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
 .mode{background:#172b3d;color:#eaf6ff;border:1px solid #35516a;padding:12px 5px;margin:0;border-radius:12px;font-size:.92rem}
 .mode.active{background:#7ee1ff;color:#07131e;border-color:#7ee1ff}
-#buildOutput{line-height:1.5}
-.resultbox{background:#12283a;border:1px solid #35516a;border-radius:12px;padding:12px;margin:10px 0}
-ul{padding-left:22px}
-li{margin:5px 0}
-.muted{color:#a9bdce;font-size:.9rem}
+#buildOutput{line-height:1.5}.resultbox{background:#12283a;border:1px solid #35516a;border-radius:12px;padding:12px;margin:10px 0}
+ul{padding-left:22px}li{margin:5px 0}.muted{color:#a9bdce;font-size:.9rem}
 .pill{display:inline-block;background:#203c50;border-radius:999px;padding:4px 9px;font-size:.8rem;margin:3px}
+.checklist label{display:flex;align-items:flex-start;gap:7px}.checklist input{margin-top:5px;flex-shrink:0}
 @media(max-width:420px){.modegrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
@@ -47,32 +37,30 @@ li{margin:5px 0}
 <header>
 <div class="kicker">Forza Horizon 5</div>
 <h1>Car Picker & Build Generator</h1>
-<p class="sub">Spin for a random car or choose one yourself, then get a build plan with recommended upgrades and tuning starting points.</p>
+<p class="sub">Spin for a random car or choose one yourself, then get specific upgrade recommendations and tuning starting points.</p>
 </header>
 
 <section class="filters">
 <div class="field"><label for="make">Manufacturer</label><select id="make"><option value="">All manufacturers</option></select></div>
-<div class="field"><label for="source">Unlock source</label><select id="source"><option value="">All sources</option><option>Autoshow</option><option>DLC</option><option>Backstage</option><option>Reward</option><option>Wheelspin</option><option>Barn Find</option><option>Seasonal</option><option>Car Pass</option><option>Welcome Pack</option><option>Unknown</option></select></div>
+<div class="field"><label for="source">Unlock source</label><select id="source"><option value="">All sources</option><option>Autoshow</option><option>DLC</option><option>Backstage</option><option>Reward</option><option>Wheelspin</option><option>Barn Find</option><option>Seasonal</option><option>Car Pass</option><option>Welcome Pack</option><option>Built-in list</option></select></div>
 <div class="field"><label for="kind">Vehicle type</label><select id="kind"><option value="">Any type</option><option value="hypercar">Hypercar</option><option value="supercar">Supercar</option><option value="track">Track / race</option><option value="offroad">Off-road / truck</option><option value="rally">Rally</option><option value="classic">Classic (pre-1990)</option><option value="electric">Electric / EV</option></select></div>
 <div class="field"><label for="search">Search car name</label><input id="search" placeholder="e.g. Toyota, Supra, Ferrari"></div>
 </section>
 
-<div class="car" aria-live="polite">
-<div><div id="carName">Ready to spin?</div><div id="meta">Load the roster to get started</div></div>
-</div>
-<button id="spin">🎲 Load cars &amp; spin</button>
+<div class="car" aria-live="polite"><div><div id="carName">Ready to spin?</div><div id="meta">Built-in car list ready</div></div></div>
+<button id="spin">🎲 Spin for a car</button>
 <button id="again" class="secondary" hidden>Spin again</button>
-<div id="status" class="status">The picker will try its main roster source and then its backup.</div>
+<div id="status" class="status">The built-in starter roster loads automatically.</div>
 
-<section class="panel" id="builder">
+<section class="panel">
 <h2>Build Generator</h2>
-<p class="muted">Use the car you spun, or choose a car from the loaded roster below.</p>
+<p class="muted">Choose a car, target class and build style to get an upgrade checklist.</p>
 <div class="two">
-<div class="field"><label for="carChoice">Choose any car</label><select id="carChoice"><option value="">Load the roster first</option></select></div>
+<div class="field"><label for="carChoice">Choose any car</label><select id="carChoice"><option value="">Choose a car…</option></select></div>
 <div class="field"><label for="buildClass">Target performance class</label><select id="buildClass"><option>B 700</option><option>A 800</option><option selected>S1 900</option><option>S2 998</option><option>X 999</option><option>Any class / maximum power</option></select></div>
 </div>
-<h3>Choose your build style</h3>
-<div class="modegrid" id="modeGrid">
+<h3>Build style</h3>
+<div class="modegrid">
 <button class="mode active" data-mode="Race">🏁 Race</button>
 <button class="mode" data-mode="Drag">🚦 Drag</button>
 <button class="mode" data-mode="Sport">🏎️ Sport</button>
@@ -81,215 +69,133 @@ li{margin:5px 0}
 <button class="mode" data-mode="Off-road">🛻 Off-road</button>
 </div>
 <div class="field"><label for="driving">Driving preference</label><select id="driving"><option value="Balanced">Balanced</option><option value="Easy to control">Easy to control</option><option value="Maximum performance">Maximum performance</option></select></div>
-<button id="generate">Generate upgrades &amp; tuning</button>
-<div id="buildOutput" aria-live="polite" class="muted" style="margin-top:14px">Choose a car and build style, then press Generate.</div>
+<button id="generate">Generate specific upgrades</button>
+<div id="buildOutput" aria-live="polite" class="muted" style="margin-top:14px">Choose a car and press Generate.</div>
 </section>
-
-<p class="small">Roster sources: <a href="https://forzahub.io/fh5/cars" target="_blank" rel="noopener">ForzaHub</a> and <a href="https://github.com/ForzaMods/FH5-Car-ID-List" target="_blank" rel="noopener">community FH5 car list</a>. Upgrade availability and PI results vary by car. Tuning values are starting points; test and adjust them in-game.</p>
+<p class="small">The built-in roster is a starter list, not every car in the game. Upgrade availability and PI results vary by vehicle. Check each part and final PI in-game.</p>
 </main>
 
 <script>
-const $ = id => document.getElementById(id);
-let cars = [], previous = '', selectedCar = null, selectedMode = 'Race';
+const $=id=>document.getElementById(id);
+let cars=[],previous='',selectedCar=null,selectedMode='Race';
 
-const sourceTerms = ['Welcome Pack','Car Pass','Barn Find','Wheelspin','Backstage','Seasonal','Reward','Autoshow','DLC'];
+const fallbackRoster=[
+'2020 Toyota GR Supra','1998 Toyota Supra RZ','1995 Toyota MR2 GT','2021 Toyota GR Yaris','2013 Toyota GT86','1969 Toyota 2000GT','1974 Toyota Celica GT','1992 Toyota Celica GT-Four RC',
+'2018 Honda Civic Type R','2005 Honda NSX-R','1997 Honda Civic Type R','2003 Honda S2000',
+'2018 Nissan GT-R','1997 Nissan Skyline GT-R V-Spec','2002 Nissan Skyline GT-R V-Spec II','1994 Nissan Silvia K’s','2000 Nissan Silvia Spec-R','2010 Nissan 370Z','1971 Nissan Skyline 2000GT-R','1993 Nissan 240SX SE',
+'2018 BMW M5','2005 BMW M3','1997 BMW M3','2016 BMW M4 GTS','1988 BMW M5','2002 BMW M3-GTR',
+'2018 Ferrari 488 Pista','2013 Ferrari LaFerrari','2015 Ferrari F12tdf','2020 Ferrari SF90 Stradale','1984 Ferrari 288 GTO','1994 Ferrari F355 Berlinetta','2017 Ferrari 812 Superfast',
+'2018 Lamborghini Aventador SVJ','2014 Lamborghini Huracan LP 610-4','2016 Lamborghini Centenario LP 770-4','1997 Lamborghini Diablo SV','1988 Lamborghini Countach LP5000 QV','2013 Lamborghini Veneno',
+'2018 McLaren Senna','2015 McLaren P1','2018 McLaren 720S','1997 McLaren F1 GT','2019 McLaren Speedtail','2021 McLaren 765LT Coupe',
+'2017 Ford GT','2020 Ford Mustang Shelby GT500','2018 Ford Mustang RTR Spec 5','2016 Ford Shelby GT350R','2017 Ford F-150 Raptor','2014 Ford Fiesta ST','1986 Ford RS200 Evolution','1993 Ford SVT Cobra R','1965 Ford Mustang GT Coupe','1977 Ford #5 Escort RS1800 MKII',
+'2019 Porsche 911 GT3 RS','2018 Porsche 911 GT2 RS','2014 Porsche 918 Spyder','1982 Porsche 911 Turbo 3.3','2016 Porsche Cayman GT4','2020 Porsche Taycan Turbo S',
+'2019 Chevrolet Corvette ZR1','2020 Chevrolet Corvette Stingray Coupe','2015 Chevrolet Corvette Z06','1970 Chevrolet Chevelle Super Sport 454','1969 Chevrolet Camaro Super Sport Coupe','2017 Chevrolet Camaro ZL1',
+'2019 Koenigsegg Jesko','2015 Koenigsegg One:1','2011 Koenigsegg Agera','2016 Koenigsegg Regera',
+'2019 Bugatti Divo','2018 Bugatti Chiron','2011 Bugatti Veyron Super Sport',
+'2016 Audi R8 V10 Plus','2003 Audi RS 6','2015 Audi S1','1983 Audi Sport quattro','2018 Audi RS 4 Avant',
+'2018 Mercedes-AMG GT 4-Door Coupe','2013 Mercedes-Benz A 45 AMG','2012 Mercedes-Benz C 63 AMG Coupe Black Series',
+'2016 Mazda MX-5','1994 Mazda MX-5 Miata','2002 Mazda RX-7 Spirit R Type-A','1997 Mazda RX-7','1990 Mazda Savanna RX-7',
+'2015 Subaru WRX STI','2005 Subaru Impreza WRX STI','1998 Subaru Impreza 22B-STI','2013 Subaru BRZ',
+'2018 Mitsubishi Lancer Evolution X GSR','2006 Mitsubishi Lancer Evolution IX MR','1999 Mitsubishi Lancer Evolution VI GSR','2004 Mitsubishi Lancer Evolution VIII MR',
+'2017 Alpine A110','2018 Renault Megane R.S.','1984 Peugeot 205 Turbo 16','2019 Volkswagen Golf R','2003 Volkswagen Golf R32','1983 Volkswagen Golf GTI',
+'2016 Jeep Trailcat','2018 Jeep Grand Cherokee Trackhawk','2020 Jeep Gladiator Rubicon','2017 Chevrolet Colorado ZR2','2014 Local Motors Rally Fighter','2015 Polaris RZR XP 1000 EPS',
+'2016 Ariel Nomad','2013 KTM X-Bow R','2016 BAC Mono','2015 Radical RXC Turbo','2018 Apollo Intensa Emozione','2019 Rimac Concept Two','2020 Lotus Evija','2020 Ford Mustang Mach-E 1400'
+];
 
-function cleanCarName(name) {
-  return name.replace(/^\s*#\s*/,'#').replace(/\s+/g,' ').trim();
+function getMake(name){
+ const brands=['Aston Martin','Alfa Romeo','Mercedes-AMG','Mercedes-Benz','Land Rover','Rolls-Royce','Lamborghini','Koenigsegg','Mitsubishi','Volkswagen','Chevrolet','McLaren','Porsche','Ferrari','Bugatti','BMW','Audi','Honda','Toyota','Nissan','Ford','Mazda','Subaru','Jeep','Renault','Peugeot','Polaris','Rimac','Lotus','Alpine','Ariel','Radical','KTM','Hyundai','Dodge','Shelby','GMC','Lucid','Rivian','Tesla','Volvo','Bentley','Jaguar','Maserati','Lexus','Infiniti','Cadillac','Buick','Chrysler','Fiat','Mini','Opel','Pagani','Rimac','Saab','TVR','Triumph','Willys'].sort((a,b)=>b.length-a.length);
+ const cleaned=name.replace(/^\d{4}\s+/,'');
+ return brands.find(b=>cleaned.toLowerCase().startsWith(b.toLowerCase()+' ')||cleaned.toLowerCase()===b.toLowerCase())||cleaned.split(/\s+/)[0]||'Unknown';
 }
-
-function getMake(name) {
-  const brands = ['Aston Martin','Alfa Romeo','Austin-Healey','Mercedes-AMG','Mercedes-Benz','Land Rover','Rolls-Royce','Morgan Motor','Hennessey','Lamborghini','Koenigsegg','Mitsubishi','Volkswagen','Chevrolet','De Tomaso','Donkervoort','Exomotive','International','Hot Wheels','Formula Drift','Mini','BMW','Audi','Bentley','Bugatti','Buick','Cadillac','Caterham','Chrysler','Cupra','Dodge','Ferrari','Fiat','Ford','GMC','Honda','Hoonigan','Hyundai','Infiniti','Jaguar','Jeep','Kia','KTM','Lancia','Lexus','Lincoln','Lotus','Lucid','Maserati','Mazda','McLaren','MG','Meyers','Mercedes','Mercury','Nissan','Nio','Noble','Oldsmobile','Opel','Pagani','Peel','Plymouth','Polaris','Pontiac','Porsche','Radical','RAM','Renault','Rimac','Rivian','Saleen','Shelby','Subaru','Toyota','Triumph','TVR','Vauxhall','Volvo','Wuling','XPeng','Zenvo','AMC','Abarth','Acura','Alpine','Ascari','ATS','Brabham','Datsun','DeLorean','Eagle','Extreme E','Ginetta','Holden','HSV','Italdesign','Jimco','Lynk & Co','Morris','Pininfarina','Saab','Sierra','Talbot','Tesla','Willys'].sort((a,b)=>b.length-a.length);
-  const cleaned = name.replace(/^\d{4}\s+/,'');
-  return brands.find(b => cleaned.toLowerCase().startsWith(b.toLowerCase()+' ') || cleaned.toLowerCase()===b.toLowerCase()) || cleaned.split(/\s+/)[0] || 'Unknown';
+function makeCar(name){const m=name.match(/^((?:19|20)\d{2})\s+(.+)$/);const year=m?+m[1]:2000;const carName=m?m[2]:name;return {year,name:carName,make:getMake(carName),source:'Built-in list'};}
+function uniqueCars(list){const seen=new Set();return list.filter(c=>{const k=c.name.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});}
+function carType(car,kind){
+ const s=(car.year+' '+car.name).toLowerCase();
+ if(!kind)return true;
+ if(kind==='classic')return car.year<1990;
+ if(kind==='electric')return /\b(electric|ev|rimac|nevera|taycan|mach-e|evija|concept two)\b/.test(s);
+ if(kind==='offroad')return /\b(truck|buggy|baja|trailcat|jeep|bronco|ranger|raptor|trophy|rally raid|off-road|offroad|polaris|willys)\b/.test(s);
+ if(kind==='rally')return /\b(rally|evolution|impreza|quattro|delta s4|205 turbo|escort rs|celica gt-four|wrx)\b/.test(s);
+ if(kind==='track')return /\b(gt[1-4]?|race car|racing|competizione|track|prototype|#\d+|radical|bac mono)\b/.test(s);
+ if(kind==='hypercar')return /\b(jesko|chiron|veyron|bolide|valkyrie|senna|p1|laferrari|nevera|one:1|agera|regera|speedtail|evija)\b/.test(s);
+ if(kind==='supercar')return /\b(lamborghini|ferrari|mclaren|pagani|koenigsegg|bugatti|maserati|aston martin|ford gt|audi r8|corvette|viper)\b/.test(s);
+ return true;
 }
-
-function makeCar(name,year,source) {
-  name=cleanCarName(name);
-  const m=name.match(/^((?:19|20)\d{2})\s+(.+)$/);
-  if(m){year=+m[1];name=m[2];}
-  return {year:Number(year)||2000,name,source:source||'Unknown',make:getMake(name)};
+function filtered(){
+ const make=$('make').value,source=$('source').value,kind=$('kind').value,q=$('search').value.toLowerCase().trim();
+ return cars.filter(c=>(!make||c.make===make)&&(!source||c.source===source)&&carType(c,kind)&&(!q||(c.year+' '+c.name).toLowerCase().includes(q)));
 }
-
-function parseHubCars(text) {
-  const out=[];
-  for(const raw of text.split(/\n/)) {
-    const line=raw.replace(/^[\s>*•-]+/,'').replace(/\s+/g,' ').trim();
-    const m=line.match(/^((?:19|20)\d{2})\s*[·•]\s*(.+)$/);
-    if(!m)continue;
-    let tail=m[2].trim(),source='Unknown';
-    for(const term of sourceTerms) {
-      const escaped=term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      const re=new RegExp('\\s+'+escaped+'\\s*$','i');
-      if(re.test(tail)){source=term;tail=tail.replace(re,'').trim();break;}
-    }
-    if(!tail||tail.length<2||/^(Cars|Forza Horizon|Every car available|Page \d)/i.test(tail))continue;
-    out.push(makeCar(tail,+m[1],source));
-  }
-  return out;
+function fillMakes(){
+ const s=$('make'),old=s.value;s.innerHTML='<option value="">All manufacturers</option>';
+ [...new Set(cars.map(c=>c.make))].sort().forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;s.append(o);});
+ if([...s.options].some(o=>o.value===old))s.value=old;
 }
-
-function parseCommunityCars(text) {
-  const out=[];let currentSource='Reward';
-  for(const line of text.split(/\n/)) {
-    const h=line.replace(/^#+\s*/,'').trim();
-    if(/DLC Required cars/i.test(h))currentSource='DLC';
-    else if(/Series \d+/i.test(h))currentSource='Reward';
-    else if(/Wheelspin exclusive/i.test(h))currentSource='Wheelspin';
-    else if(/Forza Edition cars/i.test(h))currentSource='Reward';
-    const row=line.match(/^\|\s*(.+?)\s*\|\s*(\d+)\s*\|/);
-    if(!row)continue;
-    const name=row[1].trim();
-    if(!name||/^(car|cars|name|vehicle)$/i.test(name)||/^[-: ]+$/.test(name)||/^expensive cars/i.test(name)||/^series/i.test(name)||/^extras$/i.test(name))continue;
-    out.push(makeCar(name,2000,currentSource));
-  }
-  return out;
+function fillCarChoices(){
+ const s=$('carChoice'),old=s.value;s.innerHTML='<option value="">Choose a car…</option>';
+ [...cars].sort((a,b)=>(a.year+' '+a.name).localeCompare(b.year+' '+b.name)).forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=c.year+' '+c.name;s.append(o);});
+ if([...s.options].some(o=>o.value===old))s.value=old;else if(selectedCar)s.value=selectedCar.name;
 }
-
-function uniqueCars(list) {
-  const seen=new Set();
-  return list.filter(c=>{
-    const k=c.name.toLowerCase();
-    if(seen.has(k))return false;
-    seen.add(k);return true;
-  });
+function chooseCar(car){
+ selectedCar=car;if(!car)return;
+ $('carName').textContent=car.year+' '+car.name;
+ $('meta').textContent=car.source+' · '+car.make;
+ $('carChoice').value=car.name;
 }
-
-function carType(car,kind) {
-  const s=(car.year+' '+car.name).toLowerCase();
-  if(!kind)return true;
-  if(kind==='classic')return car.year<1990;
-  if(kind==='electric')return /\b(electric|ev|rimac|nevera|nio|lucid|taycan|hyundai ioniq|volkswagen id\.|extreme e)\b/.test(s);
-  if(kind==='offroad')return /\b(truck|bronco|ranger|raptor|jeep|wrangler|land rover|defender|unimog|trophy truck|baja|rally raid|warthog|jimco|polaris|f-150)\b/.test(s);
-  if(kind==='rally')return /\b(rally|evo|impreza|escort rs|quattro|delta s4|celica gt-four|focus rs)\b/.test(s);
-  if(kind==='track')return /\b(race|gt3|gt4|gt2|gtr|formula|radical|bac mono|ariel atom|apollo|x-bow|speedtail|t\.50)\b/.test(s);
-  if(kind==='hypercar')return /\b(hypercar|veyron|chiron|senna|p1|regera|jesko|huayra|valkyrie|nevera|bolide|divo|speedtail|t\.50)\b/.test(s);
-  if(kind==='supercar')return /\b(lamborghini|ferrari|mclaren|pagani|koenigsegg|bugatti|maserati|aston martin|ford gt|audi r8|lexus lfa|corvette|viper)\b/.test(s);
-  return true;
-}
-
-function filtered() {
-  const make=$('make').value,source=$('source').value,kind=$('kind').value,q=$('search').value.toLowerCase().trim();
-  return cars.filter(c=>(!make||c.make===make)&&(!source||c.source.toLowerCase()===source.toLowerCase())&&carType(c,kind)&&(!q||(c.year+' '+c.name).toLowerCase().includes(q)));
-}
-
-function fillMakes() {
-  const s=$('make'),old=s.value;
-  s.innerHTML='<option value="">All manufacturers</option>';
-  [...new Set(cars.map(c=>c.make))].sort().forEach(m=>{
-    const o=document.createElement('option');o.value=m;o.textContent=m;s.append(o);
-  });
-  if([...s.options].some(o=>o.value===old))s.value=old;
-}
-
-function fillCarChoices() {
-  const s=$('carChoice'),old=s.value;
-  s.innerHTML='<option value="">Choose a car…</option>';
-  [...cars].sort((a,b)=>(a.year+' '+a.name).localeCompare(b.year+' '+b.name)).forEach(c=>{
-    const o=document.createElement('option');o.value=c.name;o.textContent=c.year+' '+c.name;s.append(o);
-  });
-  if([...s.options].some(o=>o.value===old))s.value=old;
-  else if(selectedCar)s.value=selectedCar.name;
-}
-
-function chooseCar(car) {
-  selectedCar=car;
-  if(!car)return;
-  $('carName').textContent=car.year+' '+car.name;
-  $('meta').textContent=car.source+' · '+car.make;
-  $('carChoice').value=car.name;
-}
-
-function draw() {
-  const pool=filtered();
-  if(!pool.length) {
-    $('carName').textContent='No cars match those filters';
-    $('meta').textContent='Change a filter and spin again.';
-    $('status').textContent=cars.length+' roster entries loaded.';
-    return;
-  }
-  let car;
-  do {car=pool[Math.floor(Math.random()*pool.length)];}
-  while(pool.length>1&&(car.year+' '+car.name)===previous);
-  previous=car.year+' '+car.name;
-  chooseCar(car);
-  $('status').textContent='Roster loaded: '+cars.length+' unique entries. '+pool.length+' match your filters.';
-  $('spin').textContent='🎲 Spin again';
-  $('again').hidden=false;
-}
-
-async function load() {
-  $('spin').disabled=true;$('again').disabled=true;
-  $('status').textContent='Trying the main car-list source…';
-  try {
-    let list=[];
-    try {
-      const pages=Array.from({length:19},(_,i)=>i+1);
-      const texts=await Promise.all(pages.map(async p=>{
-        const r=await fetch('https://r.jina.ai/http://forzahub.io/fh5/cars?page='+p);
-        if(!r.ok)throw Error('ForzaHub request failed');
-        return r.text();
-      }));
-      list=uniqueCars(texts.flatMap(parseHubCars));
-    } catch(e) {console.warn('Main roster source failed:',e);}
-    if(list.length<50) {
-      $('status').textContent='Main source unavailable. Trying backup list…';
-      const r=await fetch('https://raw.githubusercontent.com/ForzaMods/FH5-Car-ID-List/main/README.md');
-      if(!r.ok)throw Error('Backup roster request failed');
-      list=uniqueCars(parseCommunityCars(await r.text()));
-    }
-    if(list.length<50)throw Error('Roster source returned only '+list.length+' cars.');
-    cars=list;fillMakes();fillCarChoices();
-    $('status').textContent='Loaded '+cars.length+' unique roster entries.';
-    draw();
-  } catch(e) {
-    console.error(e);
-    $('carName').textContent='Could not load roster';
-    $('meta').textContent='The online sources did not load correctly.';
-    $('status').textContent='Check your internet connection and try again. If it keeps failing, the roster source or its format may have changed.';
-  } finally {$('spin').disabled=false;$('again').disabled=false;}
+function draw(){
+ const pool=filtered();
+ if(!pool.length){$('carName').textContent='No cars match those filters';$('meta').textContent='Change a filter and spin again.';return;}
+ let car;do{car=pool[Math.floor(Math.random()*pool.length)];}while(pool.length>1&&(car.year+' '+car.name)===previous);
+ previous=car.year+' '+car.name;chooseCar(car);
+ $('status').textContent=pool.length+' cars match your filters.';
+ $('spin').textContent='🎲 Spin again';$('again').hidden=false;
 }
 
 const tuneSets={
-Race:{
-parts:['Race or semi-slick tyres, depending on PI budget','Race brakes and race suspension if available','Race anti-roll bars and weight reduction','Adjust transmission for the circuit; add power only after handling upgrades'],
-tune:{'Tyre pressure':'Front 27.0 PSI · Rear 27.0 PSI','Gearing':'Set final drive for the longest straight without hitting limiter too early','Alignment':'Camber: front -1.5° · rear -1.0°; toe 0°','Anti-roll bars':'Front 25.0 · Rear 22.0','Springs':'Start near the middle of the available range; slightly stiffer for smooth tracks','Damping':'Rebound around 8.0 front / 7.5 rear; bump around 4.5 / 4.0','Differential':'RWD accel 55% / decel 20%; AWD front 20% / rear 65%, balance 65% rear'}
-},
-Drag:{
-parts:['Drag tyres if available; otherwise use the grippiest suitable tyre','Prioritise engine power and upgrades with strong acceleration gains','Use race transmission and adjustable gearing','Reduce weight; choose drivetrain conversion only if it improves launch and PI efficiency'],
-tune:{'Tyre pressure':'Front 28–35 PSI · Rear 15–20 PSI as a starting point','Gearing':'Shorten lower gears for launch; lengthen top gear so it does not hit limiter before finish','Alignment':'Camber 0° front / 0° rear · Toe 0°','Suspension':'Softer rear and a controlled front can help launch; adjust if the car wheelies or spins','Differential':'RWD accel 90–100% / decel 5–15%; AWD accel 80% front / 100% rear, balance 70–80% rear'}
-},
-Sport:{
-parts:['Street or sport tyres if keeping the car road-friendly','Sport suspension and anti-roll bars where available','Sport brakes; add power without making it hard to control','Keep the original drivetrain unless a swap clearly suits the goal'],
-tune:{'Tyre pressure':'Front 29 PSI · Rear 29 PSI','Gearing':'Keep gears versatile for road driving; set final drive for the roads you use','Alignment':'Camber: front -1.0° · rear -0.5°; toe 0°','Anti-roll bars':'Front 22.0 · Rear 19.0','Differential':'RWD accel 45% / decel 15%; AWD balance 60% rear'}
-},
-Drift:{
-parts:['Drift tyres or a lower-grip tyre setup suited to the car','Drift suspension and adjustable differential','Upgrade power enough to hold angle without overwhelming control','RWD is usually easiest for a classic drift build; tune steering and gearing for sustained slides'],
-tune:{'Tyre pressure':'Front 28 PSI · Rear 35–40 PSI starting point','Alignment':'Front camber -4.0° · rear camber -1.0°; front toe slightly out (-0.2°), rear toe 0°','Anti-roll bars':'Front 20.0 · Rear 35.0 starting point','Differential':'RWD accel 90–100% / decel 70–90%','Gearing':'Shorten gears to keep the engine in its power band; use a longer second/third gear for sustained drifts'}
-},
-Rally:{
-parts:['Rally tyres for mixed surfaces; off-road tyres for rougher routes','Rally suspension, rally anti-roll bars and adjustable differential','Prioritise acceleration, stability and weight reduction','AWD is a strong starting choice for mixed-surface rally events'],
-tune:{'Tyre pressure':'Front 26 PSI · Rear 26 PSI','Alignment':'Camber: front -1.0° · rear -0.5°; toe 0°','Springs':'Softer than a road-race build to absorb bumps; avoid bottoming out','Damping':'Start moderate-soft, then increase if the car bounces or bottoms out','Differential':'AWD accel front 25% / rear 60%; decel front 5% / rear 10%; balance 65% rear'}
-},
-'Off-road':{
-parts:['Off-road tyres for loose terrain, or rally tyres for mixed road/dirt','Off-road or rally suspension with adjustable ride height','Prioritise torque, acceleration and durability over top speed','AWD often helps traction; tune gearing shorter for steep or slow terrain'],
-tune:{'Tyre pressure':'Front 25 PSI · Rear 25 PSI','Alignment':'Camber: front -0.5° · rear -0.5°; toe 0°','Suspension':'Raise ride height for rough terrain; use softer springs than a road build','Damping':'Start on the softer side and increase if it bounces excessively','Differential':'AWD accel front 25% / rear 65%; decel front 5% / rear 10%; balance 65–70% rear'}
-}
+ Race:{tune:{'Tyre pressure':'Front 27 PSI · Rear 27 PSI','Gearing':'Adjust final drive for the longest straight without hitting the limiter','Alignment':'Camber: front -1.5° · rear -1.0°; toe 0°','Anti-roll bars':'Front 25 · Rear 22 starting point','Springs':'Start near the middle of the tuning range','Damping':'Rebound around 8 front / 7.5 rear; bump around 4.5 / 4','Differential':'RWD accel 55% / decel 20%; AWD front 20% / rear 65%, balance 65% rear'}},
+ Drag:{tune:{'Tyre pressure':'Front 30 PSI · Rear 17 PSI starting point','Gearing':'Shorten lower gears for launch; lengthen top gear as needed','Alignment':'Camber 0° front and rear; toe 0°','Suspension':'Adjust if the car wheelies or spins excessively','Differential':'RWD accel 90–100% / decel 5–15%; AWD rear accel 100%'}},
+ Sport:{tune:{'Tyre pressure':'Front 29 PSI · Rear 29 PSI','Gearing':'Use versatile road gears and adjust final drive for your route','Alignment':'Camber: front -1.0° · rear -0.5°; toe 0°','Anti-roll bars':'Front 22 · Rear 19 starting point','Differential':'RWD accel 45% / decel 15%; AWD balance 60% rear'}},
+ Drift:{tune:{'Tyre pressure':'Front 28 PSI · Rear 35–40 PSI starting point','Alignment':'Front camber -4° · rear -1°; slight front toe out','Anti-roll bars':'Front 20 · Rear 35 starting point','Differential':'RWD accel 90–100% / decel 70–90%','Gearing':'Shorten gears to keep the engine in its power band'}},
+ Rally:{tune:{'Tyre pressure':'Front 26 PSI · Rear 26 PSI','Alignment':'Front camber -1° · rear -0.5°; toe 0°','Springs':'Softer than a road-race build to absorb bumps','Damping':'Start moderate-soft; adjust if the car bounces','Differential':'AWD front accel 25% / rear 60%; rear balance around 65%'}},
+ 'Off-road':{tune:{'Tyre pressure':'Front 25 PSI · Rear 25 PSI','Alignment':'Front camber -0.5° · rear -0.5°','Suspension':'Raise ride height for rough terrain','Damping':'Start softer and adjust if it bounces','Differential':'AWD front accel 25% / rear 65%; rear balance 65–70%'}}
 };
 
-function makeBuild() {
-  const car=selectedCar||cars.find(c=>c.name===$('carChoice').value);
-  if(!car) {
-    $('buildOutput').innerHTML='<div class="resultbox">Please load the roster, spin for a car, or choose a car from the list first.</div>';
-    return;
-  }
-  const mode=tuneSets[selectedMode],pref=$('driving').value,cls=$('buildClass').value;
-  let parts=[...mode.parts];
-  if(pref==='Easy to control')parts.push('Choose the more predictable tyre/drivetrain option; avoid maximum-power upgrades until the car feels stable.');
-  if(pref==='Maximum performance')parts.push('Spend remaining PI on the strongest power-to-weight or grip upgrades that keep the car inside your chosen class.');
-  if(pref==='Balanced')parts.push('Balance power, grip and handling; do not spend all PI on engine upgrades alone.');
-  const safeName=(car.year+' '+car.name).replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  let out='<div class="resultbox"><span class="pill">'+selectedMode+'</span><span class="pill">'+cls+'</span><span class="pill">'+pref+'</span><h3>'+safeName+'</h3><p class="muted">Recommended starting plan. Confirm every part is available for this car and check the final PI in-game.</p></div>';
-  out+='<h3>Recommended upgrades</h3><ul>'+parts.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
-  out+='<h3>Suggested tuning starting points</h3><div class="resultbox"><ul>'+Object.entries(mode.tune).map(([k,v])=>'<li><strong>'+k+':</strong> '+v+'</li>').join('')+'</ul></div>';
-  if(selectedMode==='Drag'&
+function makeBuild(){
+ const car=selectedCar||cars.find(c=>c.name===$('carChoice').value);
+ if(!car){$('buildOutput').innerHTML='<div class="resultbox">Spin for a car or choose one from the list first.</div>';return;}
+ const cls=$('buildClass').value,pref=$('driving').value,mode=tuneSets[selectedMode];
+ const plans={
+ Race:{
+ 'Tires & Rims':['Tire Compound: choose Race Tires if PI allows; otherwise Sport Tires','Front Tire Width: upgrade if front grip is lacking','Rear Tire Width: upgrade if the car struggles for traction','Rim Style: choose a lighter rim if it improves weight/PI'],
+ 'Drivetrain':['Race Differential: install to unlock differential tuning','Race Transmission: install for adjustable gearing; use Sport if PI is tight','Race Clutch: install if available and PI allows','Race Driveline: install if available and PI allows'],
+ 'Platform & Handling':['Race Front Anti-Roll Bars','Race Rear Anti-Roll Bars','Race Springs and Dampers','Race Brakes if stopping performance needs improvement','Race Weight Reduction if PI allows'],
+ 'Aero & Appearance':['Forza adjustable front aero if available and front grip is needed','Forza adjustable rear wing if available and more cornering grip is needed'],
+ 'Engine':['Street/Sport Intake and Exhaust first','Upgrade camshaft, valves and engine components if PI allows','Turbo or supercharger upgrade if available and beneficial','Stop adding power if it pushes the car above the chosen class']
+ },
+ Drag:{
+ 'Tires & Rims':['Drag Tire Compound if available; otherwise choose a grippy tire','Widen rear tires if available','Use lighter rims if helpful'],
+ 'Drivetrain':['Race Differential for adjustable differential settings','Race Transmission for gear tuning','Race Clutch and Race Driveline if PI allows','Consider AWD conversion only if available and useful for launch traction'],
+ 'Platform & Handling':['Race Weight Reduction if it improves the build','Race Springs and Dampers if adjustable launch tuning is needed','Avoid spending too much PI on brakes or downforce for a straight-line build'],
+ 'Aero & Appearance':['Avoid extra downforce unless the car becomes unstable at speed'],
+ 'Engine':['Upgrade Intake and Exhaust','Upgrade fuel system, ignition and valves if available','Install turbo/supercharger upgrades if PI allows','Add engine power after checking launch traction and gearing']
+ },
+ Sport:{
+ 'Tires & Rims':['Sport Tires for a road-friendly build; Race Tires if grip is the priority','Increase front or rear tire width only where it helps grip','Choose light rims if useful'],
+ 'Drivetrain':['Sport or Race Differential if adjustable settings are needed','Sport Transmission for a lighter PI option; Race Transmission for full gearing','Sport Clutch and Sport Driveline if PI allows'],
+ 'Platform & Handling':['Sport Springs and Dampers or Race Springs and Dampers','Sport Anti-Roll Bars front and rear','Sport Brakes if stopping distance needs improvement','Sport Weight Reduction if available'],
+ 'Aero & Appearance':['Adjustable rear wing only if available and handling needs it'],
+ 'Engine':['Street/Sport Intake and Exhaust first','Upgrade Camshaft or Valves only if PI increase is worthwhile','Avoid engine swaps unless the stock engine cannot meet the goal']
+ },
+ Drift:{
+ 'Tires & Rims':['Drift Tires if available; otherwise use a compound that lets the rear break traction predictably','Keep front tire grip high enough for steering','Avoid unnecessary rear tire width','Choose lightweight rims if useful'],
+ 'Drivetrain':['Race Differential for adjustable drift differential','Race Transmission for adjustable gearing','Race Clutch and Race Driveline if PI allows','Use RWD where supported for a traditional drift build'],
+ 'Platform & Handling':['Drift Springs and Dampers','Race Front Anti-Roll Bars','Race Rear Anti-Roll Bars','Weight Reduction if PI allows'],
+ 'Aero & Appearance':['Avoid unnecessary downforce; use adjustable aero only if stability needs it'],
+ 'Engine':['Add enough Intake/Exhaust/Turbo power to hold a drift','Do not max every engine part before testing wheelspin and control']
+ },
+ Rally:{
+ 'Tires & Rims':['Rally Tires for mixed road and dirt; Offroad Tires for rougher terrain','Widen rear tires if traction is weak','Use light rims if helpful'],
+ 'Drivetrain':['Race Differential if available','Race Transmission for full gear tuning','Race Clutch and Race Driveline if PI allows','AWD conversion only if available and beneficial'],
+ 'Platform & Handling':['Rally Springs and Dampers','Race Front Anti-Roll Bars','Race Rear Anti-Roll Bars','Weight Reduction if PI allows','Race Brakes if stopping needs improvement'],
+ 'Aero & Appearance':['Adjustable
+
+
